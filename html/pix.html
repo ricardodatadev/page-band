@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Pagamento - Pix</title>
+    <link rel="stylesheet" href="../css/stylepix.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes para pagamento via Pix</h1>
+        <p>Essa é a chave para o Pix. Copie e faça o pagamento.</p>
+
+        <div>
+            <label for="pixKey">Chave Pix:</label>
+            <textarea id="pixKey" readonly></textarea>
+        </div>
+
+        <button onclick="copyPixKey()">Copiar Chave</button>
+
+        <p><strong>QR Code do Pix:</strong></p>
+        <div id="pixQRCode"></div> <!-- Exibição do QR Code Pix -->
+    </div>
+
+    <script>
+        // Função para pegar os parâmetros da URL
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Pega a chave Pix
+        const pixKey = getQueryParam('pix');
+
+        // Exibe a chave Pix na página
+        document.getElementById('pixKey').value = pixKey || "Nenhuma chave informada";
+
+        // Gera o QR Code
+        if (pixKey) {
+            new QRCode(document.getElementById("pixQRCode"), {
+                text: pixKey,
+                width: 200,
+                height: 200
+            });
+        }
+
+        // Função para copiar a chave Pix
+        function copyPixKey() {
+            const pixKeyTextarea = document.getElementById('pixKey');
+            pixKeyTextarea.select();
+            document.execCommand('copy'); // Copia o conteúdo para a área de transferência
+            alert('✅ Chave Pix copiada!');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-image: url('../imagens/banda.jpeg');
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+}
+
+.image-container,
+.image-container2 {
+    position: absolute;
+   
+    text-align: center;
+    margin-top: -450px; /* Ajuste para mover as imagens para cima */
+}
+
+.image-container {
+    position: absolute;
+    left: 46%; 
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.image-container2 {
+    
+    left: 50%;
+    transform: translateX(-7%);
+    z-index: 10;
+}
+
+.image-container img,
+.image-container2 img {
+    width: 150px; 
+    height: 150px;
+    border-radius: 80%;
+    object-fit: cover;
+    border: 5px solid #fff; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+form {
+    background-color: #ffffff;
+    max-width: 70vw;
+    padding: 25px;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 1px 1px 15px 5px #dcc6ff;
+    position: relative;
+    z-index: 5; /* Faz o formulário aparecer por cima das imagens */
+    margin-top: 120px; /* Ajuste para garantir que o formulário não se sobreponha às imagens */
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    margin-top: 50px;
+}
+
+.input-fields {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-fields > input {
+    min-width: 30vw;
+    min-height: 40px;
+    margin: 6px auto;
+    padding: 7px;
+    padding-left: 15px;
+    border: 1px solid #c0abfd;
+    border-radius: 10px;
+}
+
+.input-fields > input::placeholder {
+    color: #a2a2a2;
+}
+
+.input-fields > input:focus {
+    outline: none;
+    border: 1px solid #d1b4ff;
+    box-shadow: 1px 0 5px 0 #d1b4ff;
+    background-color: #fbf8ff;
+}
+
+.button-submit {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: white;
+    letter-spacing: .1em;
+    min-width: 20vw;
+    height: 3vh;
+    margin: 15px auto 2px;
+    padding: 20px;
+    outline: none;
+    background: linear-gradient(45deg, #5492D6, #d1b4ff);
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.button-submit:hover {
+    color: #e2d0ff;
+    padding: 30px 0;
+    box-shadow: 1px 0 10px 1px #d1b4ff;
+    transition: all 500ms ease-in;
+}
+
+.button-submit:focus {
+    border: 2px solid #9053e0;
+}
+
+.social-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  
+    cursor: pointer;
+}
+
+.social-field.whatsapp, .social-field.github {
+    width: 5px;
+    height: 40px;
+    margin: 7px 0;
+    border-radius: 10px;
+}
+
+.social-field.whatsapp {
+    background: #25D366;
+}
+
+.social-icon {
+    text-decoration: none;
+    color: #f2f2f2;
+}
+
+.social-field .social-icon i {
+    margin: 0 .5rem;
+    width: 10px;
+}
+
+/* Desktop */
+@media only screen and (min-width: 1025px) {
+    form {
+        max-width: 50vw;
+        margin-top: 100px; /* Ajuste para espaçamento das imagens */
+    }
+    .button-submit {
+        max-width: 30vw;
+        margin-bottom: 5px;
+    }
+    .input-fields input, .social-field {
+        max-width: 40vw;
+    }
+}
+
+/* Tablet landscape */ 
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .button-submit {
+        min-width: 40vw;
+    }
+    .input-fields > input, .social-field {
+        min-width: 50vw;
+    }
+}
+
+/* Tablet Portrait */
+@media only screen and (min-width: 581px) and (max-width: 768px) {
+    .button-submit {
+        min-width: 50vw;
+        margin-bottom: 5px;
+    }
+    .input-fields > input, .social-field {
+        min-width: 60vw;
+    }
+}
+
+/* Phone landscape */
+@media only screen and (min-width: 321px) and (max-width: 580px) {
+    form {
+        min-width: 80vw;
+        margin-top: 15px;
+        padding-top: 15px;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    .button-submit {
+        min-width: 50vw;
+        margin-bottom: 5px;
+    }
+    .input-fields > input, .social-field {
+        min-width: 70vw;
+    }
+}
+
+/* Typical Phone (Portrait) */
+@media only screen and (max-width: 320px) {
+    body {
+        font-size: .9em;
+    }
+    form {
+        max-width: 90vw;
+        height: 90vh;
+        margin: auto;
+    }
+
+    span {
+        font-size: .9em;
+    }
+
+    .input-fields > input {
+        min-width: 80vw;
+        margin: 4px auto;
+    }
+
+    .button-submit {
+        min-width: 70vw;
+        margin-bottom: 5px;
+    }
+
+    .footer span {
+        margin: 2px auto 5px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .social-field.linkedin, .social-field.github {
+        min-width: 70vw;
+    }
+
+    .social-field {
+        margin-top: 3px;
+    }
+}

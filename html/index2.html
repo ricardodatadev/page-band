@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Ingressos</title>
+    <link rel="stylesheet" href="../css/style2.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="band-info">
+            <img src="../imagens/persons.jpeg" alt="Foto da Banda" class="band-photo">
+            <h1>Estamos muito empolgados por você estar aqui!</h1>
+            <p>Para darmos continuidade, informe quantos ingressos você deseja para o evento. Escolha a quantidade abaixo e, em seguida, clique no botão para ir para a página de pagamento. Estamos esperando por você!</p>
+        </div>
+
+        <div class="ticket-selection">
+            <h2>Escolha o número de ingressos:</h2>
+            <select id="ticketSelect">
+                <option value="">Selecione a quantidade</option>
+                <option value="1">1 Ingresso</option>
+                <option value="2">2 Ingressos</option>
+                <option value="3">3 Ingressos</option>
+                <option value="4">4 Ingressos</option>
+                <option value="5">5 Ingressos</option>
+                <option value="6">6 Ingressos</option>
+                <option value="7">7 Ingressos</option>
+                <option value="8">8 Ingressos</option>
+                <option value="9">9 Ingressos</option>
+                <option value="10">10 Ingressos</option>
+            </select>
+
+            <div class="acompanhantes">
+                <h3>Nome dos Acompanhantes:</h3>
+                <div id="acompanhantesFields"></div>
+                <button id="addAcompanhanteButton">Adicionar Acompanhante</button>
+            </div>
+
+            <h2>Escolha a forma de pagamento:</h2>
+            <div class="radio-buttons">
+                <div class="radio-wrapper">
+                    <div class="radio-column">
+                        <label><input type="radio" name="payment" value="pix"> Pix</label>
+                        <label><input type="radio" name="payment" value="cartao"> Cartão de Crédito</label>
+                    </div>
+                </div>
+            </div>
+
+            <button id="payButton" class="button" disabled>Ir para Pagamento</button>
+        </div>
+
+        <div id="pixDetails" style="display:none;">
+            <h3>Detalhes para pagamento via Pix:</h3>
+            <div id="pixKey"></div>
+            <div id="pixQRCode"></div>
+        </div>
+    </div>
+
+    <script>
+        const ticketSelect = document.getElementById('ticketSelect');
+        const paymentRadios = document.querySelectorAll('input[name="payment"]');
+        const payButton = document.getElementById('payButton');
+        const pixKeyDiv = document.getElementById('pixKey');
+        const pixQRCodeDiv = document.getElementById('pixQRCode');
+        const pixDetailsDiv = document.getElementById('pixDetails');
+        const addAcompanhanteButton = document.getElementById('addAcompanhanteButton');
+        const acompanhantesFields = document.getElementById('acompanhantesFields');
+
+        // Mapeamento de valores para URLs específicas (Cartão de Crédito) ou Chaves Pix
+        const ticketLinks = {
+            "1": {
+                "pix": "00020101021126460014BR.GOV.BCB.PIX0124ricardodatadev@gmail.com520400005303986540510.005802BR5924RICARDO PEREIRA DA SILVA6008SAOPAULO61080132305062070503***6304E857",
+                "cartao": "https://pay.infinitepay.io/flashrock/VC1B-2Ur1In98oR-10,00 "
+            },
+            // Outros valores de ticket...
+        };
+
+        let selectedTicket = "";
+        let selectedPayment = "";
+
+        // Atualiza o botão de pagamento ao selecionar ingressos
+        ticketSelect.addEventListener('change', () => {
+            selectedTicket = ticketSelect.value;
+            updatePayButtonState();
+        });
+
+        // Atualiza a forma de pagamento selecionada
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                selectedPayment = radio.value;
+                updatePayButtonState();
+            });
+        });
+
+        // Função para habilitar ou desabilitar o botão de pagamento
+        function updatePayButtonState() {
+            if (selectedTicket && selectedPayment) {
+                payButton.disabled = false;
+            } else {
+                payButton.disabled = true;
+            }
+        }
+
+        // Função para adicionar campos de acompanhantes
+        addAcompanhanteButton.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Nome do Acompanhante';
+            input.classList.add('acompanhanteInput');
+            acompanhantesFields.appendChild(input);
+        });
+
+        // Quando o botão "Ir para Pagamento" for clicado, gerar o link de pagamento
+        payButton.addEventListener('click', () => {
+            if (selectedTicket && selectedPayment) {
+                if (selectedPayment === "pix") {
+                    const pixValue = ticketLinks[selectedTicket].pix;
+                    window.location.href = `pix.html?pix=${encodeURIComponent(pixValue)}`;
+                } else if (selectedPayment === "cartao") {
+                    const paymentUrl = ticketLinks[selectedTicket].cartao;
+                    window.location.href = paymentUrl;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+/* Resetando estilos padrões */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container principal */
+.container {
+    background-color: #1e1e1e;
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(255, 255, 255, 0.1);
+}
+
+/* Foto da banda */
+.band-photo {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para o título e texto de introdução */
+.band-info h1 {
+    font-size: 2rem;
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+.band-info p {
+    font-size: 1.1rem;
+    color: #81c784;
+    margin-bottom: 30px;
+}
+
+/* Estilo para a seção de acompanhantes */
+.acompanhantes {
+    margin-top: 30px;
+    text-align: left;
+    background-color: #292929;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.acompanhante-input {
+    margin-bottom: 10px;
+}
+
+.acompanhante-input input {
+    width: 80%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #66bb6a;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    margin: 5px 0;
+    transition: border-color 0.3s ease;
+}
+
+.acompanhante-input input:focus {
+    border-color: #81c784;
+    outline: none;
+}
+
+#acompanhantesFields {
+    margin-bottom: 10px;
+}
+
+#addAcompanhante {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #66bb6a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#addAcompanhante:hover {
+    background-color: #4caf50;
+}
+
+#addAcompanhante:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* Seção de seleção de ingressos */
+.ticket-selection {
+    background-color: #292929;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+}
+
+/* Título da seção de ingressos */
+.ticket-selection h2 {
+    font-size: 1.6rem;
+    color: #66bb6a;
+    margin-bottom: 20px;
+}
+
+/* Estilizando o select (menu suspenso) */
+select {
+    width: 100%;
+    max-width: 250px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #4caf50;
+    border-radius: 5px;
+    background-color: #333;
+    color: #ffffff;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+select:focus {
+    border-color: #66bb6a;
+    outline: none;
+}
+
+/* Estilo para os botões de pagamento */
+.radio-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.radio-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.radio-column label {
+    font-size: 1rem;
+    color: #66bb6a;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+/* Botão de pagamento */
+.button {
+    padding: 12px 25px;
+    background-color: #2e7d32;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    max-width: 250px;
+    margin-top: 20px;
+}
+
+.button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+.button:hover:enabled {
+    background-color: #1b5e20;
+}
+
+/* Responsividade para dispositivos menores */
+@media (max-width: 768px) {
+    .band-info h1 {
+        font-size: 1.8rem;
+    }
+
+    .band-info p {
+        font-size: 1rem;
+    }
+
+    .ticket-selection {
+        padding: 15px;
+    }
+
+    select {
+        max-width: 100%;
+    }
+
+    .radio-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button {
+        max-width: 100%;
+    }
+}
