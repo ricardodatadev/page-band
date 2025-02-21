@@ -31,93 +31,83 @@
                 <option value="10">10 Ingressos</option>
             </select>
 
-           
-
             <h2>Escolha a forma de pagamento:</h2>
             <div class="radio-buttons">
-                <div class="radio-wrapper">
-                    <div class="radio-column">
-                        <label><input type="radio" name="payment" value="pix"> Pix</label>
-                        <label><input type="radio" name="payment" value="cartao"> Cartão de Crédito</label>
-                    </div>
+                <div class="radio-column">
+                    <label><input type="radio" name="payment" value="pix"> Pix</label>
+                    <label><input type="radio" name="payment" value="cartao"> Cartão de Crédito</label>
                 </div>
             </div>
 
             <button id="payButton" class="button" disabled>Ir para Pagamento</button>
         </div>
-
-        <div id="pixDetails" style="display:none;">
-            <h3>Detalhes para pagamento via Pix:</h3>
-            <div id="pixKey"></div>
-            <div id="pixQRCode"></div>
-        </div>
     </div>
 
     <script>
-        const ticketSelect = document.getElementById('ticketSelect');
-        const paymentRadios = document.querySelectorAll('input[name="payment"]');
-        const payButton = document.getElementById('payButton');
-        const pixKeyDiv = document.getElementById('pixKey');
-        const pixQRCodeDiv = document.getElementById('pixQRCode');
-        const pixDetailsDiv = document.getElementById('pixDetails');
-        const addAcompanhanteButton = document.getElementById('addAcompanhanteButton');
-        const acompanhantesFields = document.getElementById('acompanhantesFields');
+        document.addEventListener("DOMContentLoaded", () => {
+            const ticketSelect = document.getElementById('ticketSelect');
+            const paymentRadios = document.querySelectorAll('input[name="payment"]');
+            const payButton = document.getElementById('payButton');
 
-        // Mapeamento de valores para URLs específicas (Cartão de Crédito) ou Chaves Pix
-        const ticketLinks = {
-            "1": {
-                "pix": "00020101021126460014BR.GOV.BCB.PIX0124ricardodatadev@gmail.com520400005303986540510.005802BR5924RICARDO PEREIRA DA SILVA6008SAOPAULO61080132305062070503***6304E857",
-                "cartao": "https://pay.infinitepay.io/flashrock/VC1B-2Ur1In98oR-10,00 "
-            },
-            // Outros valores de ticket...
-        };
+            // Mapeamento de valores para URLs específicas (Cartão de Crédito) ou Chaves Pix
+            const ticketLinks = {
+                "1": {
+                    "pix": "00020101021126460014BR.GOV.BCB.PIX0124ricardodatadev@gmail.com520400005303986540510.005802BR5924RICARDO PEREIRA DA SILVA6008SAOPAULO61080132305062070503***6304E857",
+                    "cartao": "https://pay.infinitepay.io/flashrock/VC1B-2Ur1In98oR-10,00"
+                }
+            };
 
-        let selectedTicket = "";
-        let selectedPayment = "";
+            let selectedTicket = "";
+            let selectedPayment = "";
 
-        // Atualiza o botão de pagamento ao selecionar ingressos
-        ticketSelect.addEventListener('change', () => {
-            selectedTicket = ticketSelect.value;
-            updatePayButtonState();
-        });
-
-        // Atualiza a forma de pagamento selecionada
-        paymentRadios.forEach(radio => {
-            radio.addEventListener('change', () => {
-                selectedPayment = radio.value;
+            // Atualiza o botão de pagamento ao selecionar ingressos
+            ticketSelect.addEventListener('change', () => {
+                selectedTicket = ticketSelect.value;
                 updatePayButtonState();
             });
-        });
 
-        // Função para habilitar ou desabilitar o botão de pagamento
-        function updatePayButtonState() {
-            if (selectedTicket && selectedPayment) {
-                payButton.disabled = false;
-            } else {
-                payButton.disabled = true;
+            // Atualiza a forma de pagamento selecionada
+            paymentRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    selectedPayment = radio.value;
+                    updatePayButtonState();
+                });
+            });
+
+            // Função para habilitar ou desabilitar o botão de pagamento
+            function updatePayButtonState() {
+                console.log("Ticket:", selectedTicket, "Payment:", selectedPayment);
+                if (selectedTicket && selectedPayment) {
+                    payButton.disabled = false;
+                } else {
+                    payButton.disabled = true;
+                }
             }
-        }
 
-        // Função para adicionar campos de acompanhantes
-        addAcompanhanteButton.addEventListener('click', () => {
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.placeholder = 'Nome do Acompanhante';
-            input.classList.add('acompanhanteInput');
-            acompanhantesFields.appendChild(input);
-        });
+            // Quando o botão "Ir para Pagamento" for clicado, gerar o link de pagamento
+            payButton.addEventListener('click', () => {
+                console.log("Botão clicado!");
+                
+                if (!selectedTicket || !selectedPayment) {
+                    alert("Selecione um ingresso e uma forma de pagamento.");
+                    return;
+                }
 
-        // Quando o botão "Ir para Pagamento" for clicado, gerar o link de pagamento
-        payButton.addEventListener('click', () => {
-            if (selectedTicket && selectedPayment) {
+                if (!ticketLinks[selectedTicket]) {
+                    alert("Nenhum link de pagamento disponível para essa quantidade.");
+                    return;
+                }
+
                 if (selectedPayment === "pix") {
                     const pixValue = ticketLinks[selectedTicket].pix;
+                    console.log("Redirecionando para Pix:", pixValue);
                     window.location.href = `pix.html?pix=${encodeURIComponent(pixValue)}`;
                 } else if (selectedPayment === "cartao") {
                     const paymentUrl = ticketLinks[selectedTicket].cartao;
+                    console.log("Redirecionando para Cartão:", paymentUrl);
                     window.location.href = paymentUrl;
                 }
-            }
+            });
         });
     </script>
 </body>
