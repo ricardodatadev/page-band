@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Pagamento - Pix</title>
     <link rel="stylesheet" href="../css/stylepix.css">
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -30,18 +30,20 @@
             return urlParams.get(name);
         }
 
-        // Pega a chave Pix
+        // Pega a chave Pix da URL
         const pixKey = getQueryParam('pix');
 
         // Exibe a chave Pix na página
         document.getElementById('pixKey').value = pixKey || "Nenhuma chave informada";
 
-        // Gera o QR Code
+        // Gera o QR Code com a chave Pix
         if (pixKey) {
-            new QRCode(document.getElementById("pixQRCode"), {
-                text: pixKey,
-                width: 200,
-                height: 200
+            QRCode.toCanvas(document.getElementById("pixQRCode"), pixKey, function (error) {
+                if (error) {
+                    console.error("Erro ao gerar o QR Code:", error);
+                } else {
+                    console.log("QR Code gerado com sucesso!");
+                }
             });
         }
 
