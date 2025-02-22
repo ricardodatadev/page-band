@@ -142,15 +142,41 @@ h1 {
     background: #25D366;
 }
 
-/* Ícone dentro do botão */
-.social-field .social-icon i {
-    margin: 0 0.5rem;
-    width: 20px;
-    text-align: center;
+.social-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.social-icon {
+    background-color: #25D366;
+    color: white;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 50px;
+    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    width: 200px; /* Define uma largura consistente */
+    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+    .social-field {
+        position: fixed;
+        bottom: 20px; /* Fixa o botão na parte inferior da tela */
+        left: 50%;
+        transform: translateX(-50%); /* Centraliza horizontalmente */
+        z-index: 100;
+    }
+
+    .social-icon {
+        font-size: 16px; /* Ajusta o tamanho do ícone para telas menores */
+        width: auto;
+        padding: 8px 12px;
+    }
 }
 
 /* Ajuste extra para garantir que fique centralizado */
