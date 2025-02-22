@@ -87,24 +87,19 @@
             return urlParams.get(name);
         }
 
-        // Pega a chave Pix da URL
+        // Pega a chave Pix
         const pixKey = getQueryParam('pix');
 
-        if (pixKey) {
-            // Exibe a chave Pix na área de texto
-            document.getElementById('pixKey').value = pixKey;
+        // Exibe a chave Pix na página
+        document.getElementById('pixKey').value = pixKey || "Nenhuma chave informada";
 
-            // Gera o QR Code com a chave Pix
+        // Gera o QR Code
+        if (pixKey) {
             new QRCode(document.getElementById("pixQRCode"), {
                 text: pixKey,
                 width: 200,
-                height: 200,
-                correctLevel: QRCode.CorrectLevel.L // Nível de correção para evitar problemas com o QR Code
+                height: 200
             });
-        } else {
-            // Se não houver chave Pix na URL
-            document.getElementById('pixKey').value = "Nenhuma chave informada";
-            alert("Chave Pix não encontrada na URL.");
         }
 
         // Função para copiar a chave Pix
