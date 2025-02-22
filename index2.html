@@ -40,6 +40,11 @@
             </div>
 
             <button id="payButton" class="button" disabled>Ir para Pagamento</button>
+
+            <!-- Aqui adicionamos um espaço para exibir o QR Code -->
+            <div id="qrcode-container" style="margin-top: 20px;">
+                <!-- O QR Code será gerado aqui -->
+            </div>
         </div>
     </div>
 
@@ -48,6 +53,7 @@
             const ticketSelect = document.getElementById('ticketSelect');
             const paymentRadios = document.querySelectorAll('input[name="payment"]');
             const payButton = document.getElementById('payButton');
+            const qrcodeContainer = document.getElementById('qrcode-container');
 
             // Mapeamento de valores para URLs específicas (Cartão de Crédito) ou Chaves Pix
             const ticketLinks = {
@@ -75,8 +81,6 @@
                     "pix": "00020101021226690014BR.GOV.BCB.PIX0124ricardodatadev@gmail.com0219Pagamento flashrock520400005303986540575.005802BR5924RICARDO PEREIRA DA SILVA6012PITANGUEIRAS62290525b5ZoeRiR2yJ1XUmFEqZMJ9zRG63041EF8",
                     "cartao": "https://pay.infinitepay.io/flashrock/VC1D-4zso4bLIBV-75,00"
                 }
-
-
             };
 
             let selectedTicket = "";
@@ -103,6 +107,7 @@
                     payButton.disabled = false;
                 } else {
                     payButton.disabled = true;
+                    qrcodeContainer.innerHTML = ''; // Limpar o QR Code se algo estiver errado
                 }
             }
 
@@ -122,8 +127,11 @@
 
                 if (selectedPayment === "pix") {
                     const pixValue = ticketLinks[selectedTicket].pix;
-                    console.log("Redirecionando para Pix:", pixValue);
-                    window.location.href = `pix.html?pix=${encodeURIComponent(pixValue)}`;
+                    console.log("Gerando QR Code para Pix:", pixValue);
+                    // Gerar o QR Code para a chave Pix
+                    QRCode.toCanvas(qrcodeContainer, pixValue, function (error) {
+                        if (error) console.error(error);
+                    });
                 } else if (selectedPayment === "cartao") {
                     const paymentUrl = ticketLinks[selectedTicket].cartao;
                     console.log("Redirecionando para Cartão:", paymentUrl);
