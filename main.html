@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+
+        <title>Noite do Rock</title>
+        <script src="https://kit.fontawesome.com/f1636089dd.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../css/login-style.css">
+        <script src="https://unpkg.com/imask"></script> <!-- Biblioteca de Máscaras -->
+        <style>
+            .disabled-button {
+                background-color: gray;
+                cursor: not-allowed;
+            }
+            /* Estilo para a notificação */
+            .notification {
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #f8d7da;
+                color: #721c24;
+                padding: 10px;
+                border-radius: 5px;
+                display: none;
+                z-index: 100;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Notificação de erro -->
+            <div class="notification" id="notification">Por favor, preencha todos os campos corretamente!</div>
+
+            
+            <!-- Formulário de Login -->
+            <form id="ingressoForm">
+                <div class="image-container">
+                    <img src="../imagens/logo2.jpeg" alt="Logo do Evento">
+                </div>
+                <div class="image-container2">
+                    <img src="../imagens/logo.jpeg" alt="Logo">
+                </div>
+            
+                <h1>Noite do Rock</h1><br>
+            
+                <div class="event-info">
+                    <p><strong>Local:</strong> PIZZA & CIA</p>
+                    <p><strong>Endereço:</strong> Avenida das Pitangueiras</p>
+                    <p><strong>Data:</strong> 05 de Abril</p>
+                    <p><strong>Horário de Início:</strong> 20:00</p>
+                    <p><strong>Ingresso Antecipado:</strong> R$ 15,00</p><br>
+
+                </div>
+            
+                <div class="input-fields">
+                    <input type="text" name="username" id="username" placeholder="Nome Completo" required>
+                </div>
+                <div class="input-fields">
+                    <input type="tel" name="telefone" id="telefone" placeholder="(__) _____-____" required>
+                </div>
+                <button type="submit" class="button-submit disabled-button" id="btnIngresso" disabled>
+                    Garantir Meu Ingresso Agora
+                </button>
+            
+                <!-- WhatsApp dentro do formulário para ficar fixo -->
+                <div class="social-field whatsapp">
+                    <a href="https://wa.me/5516974033230?text=Ol%C3%A1!%20Gostaria%20de%20adquirir%20o%20meu%20ingresso%20%F0%9F%98%81" class="social-icon">
+                        <i class="fab fa-whatsapp fa-lg"></i> WhatsApp
+                    </a>
+                </div>
+            </form>
+            
+        </div>
+
+        <script>
+            // Aplicando a máscara ao campo de telefone
+            let telefoneInput = document.getElementById("telefone");
+            let nomeInput = document.getElementById("username");
+            let btnIngresso = document.getElementById("btnIngresso");
+            let notification = document.getElementById("notification");
+
+            let mask = IMask(telefoneInput, {
+                mask: "(00) 00000-0000"
+            });
+
+            function validarCampos() {
+                let nomeValido = nomeInput.value.trim().length > 2;
+                let telefoneValido = telefoneInput.value.length === 15; // Tamanho correto do telefone formatado
+
+                // Ativa ou desativa o botão
+                if (nomeValido && telefoneValido) {
+                    btnIngresso.disabled = false;
+                    btnIngresso.classList.remove("disabled-button");
+                    notification.style.display = "none"; // Esconde a notificação
+                } else {
+                    btnIngresso.disabled = true;
+                    btnIngresso.classList.add("disabled-button");
+                    notification.style.display = "block"; // Mostra a notificação
+                }
+            }
+
+            telefoneInput.addEventListener("input", validarCampos);
+            nomeInput.addEventListener("input", validarCampos);
+
+            document.getElementById("ingressoForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                let nome = nomeInput.value;
+                let telefone = telefoneInput.value;
+
+                // Enviar os dados para o Google Apps Script
+                fetch('https://formspree.io/f/xdkabqdr', {  // Substitua 'SEU_ENDPOINT_AQUI' pelo seu URL do Google Apps Script
+                    method: 'POST',
+                    body: new URLSearchParams({
+                        nome: nome,
+                        telefone: telefone
+                    })
+                })
+                .then(response => {
+                    // Não importa se deu erro ou sucesso, vamos redirecionar
+                    return response.text();
+                })
+              
+                .finally(() => {
+                    // Redireciona para a próxima página independentemente do sucesso ou erro
+                    localStorage.setItem("nome", nome);
+                    localStorage.setItem("telefone", telefone);
+
+                    setTimeout(function() {
+                        window.location.href = "index2.html"; // Redirecionamento
+                    }, 10); // Atraso de 500ms para garantir que o redirecionamento ocorra
+                });
+            });
+        </script>
+    </body>
+</html>
