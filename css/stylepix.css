@@ -26,6 +26,13 @@ body {
     max-width: 500px; /* Define uma largura máxima */
 }
 
+#pixQRCode {
+    display: flex;
+    justify-content: center;  /* Centraliza o QR Code horizontalmente */
+    align-items: center;      /* Centraliza o QR Code verticalmente */
+    margin-top: 20px;
+}
+
 canvas {
     margin-top: 20px;
     border: 1px solid #ccc;
