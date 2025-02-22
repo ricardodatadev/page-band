@@ -30,12 +30,12 @@ body {
 }
 
 .image-container {
-    left: 30%;
+    left: 35%;
     transform: translateX(-50%);
 }
 
 .image-container2 {
-    left: 60%;
+    left: 50%;
     transform: translateX(-50%);
 }
 
