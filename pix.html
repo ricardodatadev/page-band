@@ -5,7 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Pagamento - Pix</title>
     <link rel="stylesheet" href="../css/stylepix.css">
-    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <style>
+        /* Estilos principais para centralizar o conteúdo */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center;     /* Centraliza verticalmente */
+            height: 100vh;           /* Usa a altura total da tela */
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px; /* Define uma largura máxima */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #pixQRCode {
+            display: flex;
+            justify-content: center;  /* Centraliza o QR Code horizontalmente */
+            align-items: center;      /* Centraliza o QR Code verticalmente */
+            margin-top: 20px;
+            width: 100%;              /* Garantir que o QR Code ocupe a largura disponível */
+            max-width: 250px;         /* Definir um tamanho máximo para o QR Code */
+        }
+
+        textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -20,7 +77,7 @@
         <button onclick="copyPixKey()">Copiar Chave</button>
 
         <p><strong>QR Code do Pix:</strong></p>
-        <canvas id="pixQRCode"></canvas> <!-- O QR Code será gerado aqui -->
+        <div id="pixQRCode"></div> <!-- Exibição do QR Code Pix -->
     </div>
 
     <script>
@@ -30,20 +87,18 @@
             return urlParams.get(name);
         }
 
-        // Pega a chave Pix da URL
+        // Pega a chave Pix
         const pixKey = getQueryParam('pix');
 
         // Exibe a chave Pix na página
         document.getElementById('pixKey').value = pixKey || "Nenhuma chave informada";
 
-        // Gera o QR Code com a chave Pix
+        // Gera o QR Code
         if (pixKey) {
-            QRCode.toCanvas(document.getElementById("pixQRCode"), pixKey, function (error) {
-                if (error) {
-                    console.error("Erro ao gerar o QR Code:", error);
-                } else {
-                    console.log("QR Code gerado com sucesso!");
-                }
+            new QRCode(document.getElementById("pixQRCode"), {
+                text: pixKey,
+                width: 200,
+                height: 200
             });
         }
 
