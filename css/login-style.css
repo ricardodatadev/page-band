@@ -7,7 +7,7 @@
 
 body {
     background-image: url('../imagens/banda.jpeg');
-    background-color: black;
+    
     background-size: cover;
     background-position: center;
     display: flex;
@@ -16,47 +16,39 @@ body {
     min-height: 100vh;
     flex-direction: column;
 }
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+.image-wrapper {
+    position: absolute;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .image-container,
 .image-container2 {
     position: absolute;
-   
-    text-align: center;
-    margin-top: -450px; /* Ajuste para mover as imagens para cima */
+    top: -70px; /* Ajuste fino para posicionar sobre o card */
 }
 
 .image-container {
-    position: absolute;
-    left: 46%; 
+    left: 40%;
     transform: translateX(-50%);
-    z-index: 10;
 }
 
 .image-container2 {
-    
-    left: 50%;
-    transform: translateX(-7%);
-    z-index: 10;
+    left: 60%;
+    transform: translateX(-50%);
 }
 
 .image-container img,
 .image-container2 img {
-    width: 150px; 
-    height: 150px;
-    border-radius: 80%;
+    width: 120px; /* Reduzi um pouco para melhorar a responsividade */
+    height: 120px;
+    border-radius: 50%;
     object-fit: cover;
-    border: 5px solid #fff; 
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+    border: 5px solid #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
+
 
 form {
     background-color: #ffffff;
@@ -107,13 +99,13 @@ h1 {
 
 .button-submit {
     font-size: 1.2em;
-    font-weight: 500;
+    font-weight: 400;
     color: white;
     letter-spacing: .1em;
     min-width: 20vw;
     height: 3vh;
     margin: 15px auto 2px;
-    padding: 20px;
+    padding: 30px;
     outline: none;
     background: linear-gradient(45deg, #5492D6, #d1b4ff);
     border: none;
@@ -124,16 +116,7 @@ h1 {
     cursor: pointer;
 }
 
-.button-submit:hover {
-    color: #e2d0ff;
-    padding: 30px 0;
-    box-shadow: 1px 0 10px 1px #d1b4ff;
-    transition: all 500ms ease-in;
-}
 
-.button-submit:focus {
-    border: 2px solid #9053e0;
-}
 
 .social-field {
     width: 100%;
@@ -145,7 +128,7 @@ h1 {
 }
 
 .social-field.whatsapp, .social-field.github {
-    width: 10px;
+    width: 300px;
     height: 40px;
     margin: 7px 0;
     border-radius: 10px;
@@ -162,7 +145,7 @@ h1 {
 
 .social-field .social-icon i {
     margin: 0 .5rem;
-    width: 10px;
+    width: 20px;
 }
 
 /* Desktop */
